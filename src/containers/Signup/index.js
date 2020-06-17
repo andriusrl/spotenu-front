@@ -1,9 +1,11 @@
 import React from "react"
 import { connect } from "react-redux"
 import { signup } from "../../actions/loginSignup"
-import { TextField } from "@material-ui/core";
 import styled from "styled-components"
 import { ButtonCustom } from '../../style/style';
+import NativeSelect from '@material-ui/core/NativeSelect';
+import { classes, styles } from '../../style/theme';
+import { mapForm } from "../../utils/forms";
 
 const signupForm = [
     {
@@ -52,18 +54,7 @@ class Signup extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            form: {}
         }
-    }
-
-    handleFormChange = (e) => {
-        const { name, value } = e.target
-        this.setState({
-            form: {
-                ...this.state.form,
-                [name]: value
-            }
-        })
     }
 
     handleOnSubmit = (e) => {
@@ -71,33 +62,35 @@ class Signup extends React.Component {
         this.props.signup(this.state.form)
     }
 
-    render() {
+    showForm = () => {
+        return (
+            mapForm(signupForm, Signup)
+        )
+    }
 
+    teste = ()=>{
+        return <p>teste</p>
+    }
+
+    render() {
         return (
             <SignupWrapper onSubmit={this.handleOnSubmit}>
-                {signupForm.map((form) => {
-                    if (form.type === "text" || form.type === "password") {
-                        return (
-                            <div key={form.name}>
-                                <TextField
-                                    onChange={this.handleFormChange}
-                                    id={form.name}
-                                    name={form.name}
-                                    type={form.type}
-                                    required={form.required}
-                                    pattern={form.pattern}
-                                    label={form.label}
-                                    value={this.state.form[form.name] || ""}
-                                />
-                            </div>
-                        )
-                    }
-                    return (
-                        <div>Tipo de formulário não encontrado</div>
-                    )
+                <span>
+                    <label>Cadastrar como </label>
+                    <NativeSelect
+                        // value={this.state.age}
+                        // onChange={this.handleChange('age')}
+                        name="age"
+                        className={styles.selectEmpty}
+                    >
+                        <option value="listener">Ouvinte</option>
+                        <option value="band">Banda</option>
+                    </NativeSelect>
+                </span>
+                {/* {()=>{this.showForm("listener")}} */}
 
-                })
-                }
+                {this.showForm()}
+
                 <ButtonCustom type="submit">Criar conta</ButtonCustom>
             </SignupWrapper>
         )
