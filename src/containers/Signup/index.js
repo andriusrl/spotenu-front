@@ -4,10 +4,10 @@ import { signup } from "../../actions/loginSignup"
 import styled from "styled-components"
 import { ButtonCustom } from '../../style/style';
 import NativeSelect from '@material-ui/core/NativeSelect';
-import { classes, styles } from '../../style/theme';
-import { mapForm } from "../../utils/forms";
+import { styles } from '../../style/theme';
+import MapForm from "../../utils/forms"
 
-const signupForm = [
+const signupFormUser = [
     {
         name: "name",
         label: "Nome",
@@ -41,6 +41,48 @@ const signupForm = [
     }
 ]
 
+const signupFormBand = [
+    {
+        name: "name",
+        label: "Nome",
+        type: "text",
+        required: true,
+        // pattern: "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/",
+        title: "Nome do usuário",
+    },
+    {
+        name: "email",
+        label: "Email",
+        type: "text",
+        required: true,
+        pattern: "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/",
+        title: "Email do usuário",
+    },
+    {
+        name: "nickname",
+        label: "Nickname",
+        type: "text",
+        required: true,
+        pattern: "/^@[A-Za-z0-9]+([._][A-Za-z0-9]+)*$/",
+        title: "Nickname do usuário",
+    },
+    {
+        name: "description",
+        label: "Descrição",
+        type: "text",
+        required: true,
+        // pattern: "/^@[A-Za-z0-9]+([._][A-Za-z0-9]+)*$/",
+        title: "Descrição da banda",
+    },
+    {
+        name: "password",
+        label: "Senha",
+        type: "password",
+        required: true,
+        title: "Senha do usuário",
+    }
+]
+
 const SignupWrapper = styled.form`
     width: 100%;
   height: 100vh;
@@ -54,6 +96,7 @@ class Signup extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            userType: "listener"
         }
     }
 
@@ -62,14 +105,15 @@ class Signup extends React.Component {
         this.props.signup(this.state.form)
     }
 
-    showForm = () => {
-        return (
-            mapForm(signupForm, Signup)
-        )
+    handleChangeUserType = (e) => {
+        this.setState({userType:e.target.value})
     }
 
-    teste = ()=>{
-        return <p>teste</p>
+
+    showForm = () => {
+        console.log(this.state.userType)
+        console.log(this.state.userType=="listener")
+        return this.state.userType=="listener"?<MapForm key="listener" form={signupFormUser} />:<MapForm key="band" form={signupFormBand} />
     }
 
     render() {
@@ -78,8 +122,8 @@ class Signup extends React.Component {
                 <span>
                     <label>Cadastrar como </label>
                     <NativeSelect
-                        // value={this.state.age}
-                        // onChange={this.handleChange('age')}
+                        value={this.state.userType}
+                        onChange={this.handleChangeUserType}
                         name="age"
                         className={styles.selectEmpty}
                     >
@@ -87,7 +131,6 @@ class Signup extends React.Component {
                         <option value="band">Banda</option>
                     </NativeSelect>
                 </span>
-                {/* {()=>{this.showForm("listener")}} */}
 
                 {this.showForm()}
 
