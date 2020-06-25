@@ -2,7 +2,7 @@ import axios from 'axios';
 import { push } from "connected-react-router";
 import { routes } from '../containers/Router'
 
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'http://localhost:3003/users'
 
 export const login = (email, password) => async (dispatch) => {
 
@@ -32,16 +32,27 @@ export const login = (email, password) => async (dispatch) => {
 }
 
 export const signup = (formData) => async (dispatch) => {
-    const { email, password, username} = formData
+    const { name, email, nickname, description, password} = formData
     const data = {
+        "name": name,
         "email": email,
-        "password": password,
-        "username": username
+        "nickname": nickname,
+        "description": description,
+        "password": password
     }
     try {
-        await axios.post(`${baseUrl}/signup`, data)
+        let result = undefined
+        if (!description){
+            result = await axios.post(`${baseUrl}/signup/listener`, data)
+        }
+        else{
+            result = await axios.post(`${baseUrl}/signup/band`, data)
+        }
         alert("Usuário criado com sucesso")
-        dispatch(login(email, password))
+        // console.log(result.data.accessToken)
+        // dispatch(login(email, password))
+        window.localStorage.setItem("token", result.data.accessToken);
+        dispatch(push(routes.feed))
     }
     catch (error) {
         console.error(error)

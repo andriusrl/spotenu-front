@@ -19,6 +19,9 @@ const PageContent = styled(Card)`
   width: 800px;
   margin-left: auto;
   margin-right: auto;
+  @media (max-width: 480px) {
+    width: 100%;
+}
 `
 const Footer = styled(AppBar)`
   display: flex;
