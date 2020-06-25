@@ -75,32 +75,3 @@ class MapForm extends React.Component {
 }
 
 export default MapForm;
-
-
-// showform = () => {
-//     return (
-//         this.state.form.map((form) => {
-//             if (form.type === "text" || form.type === "password") {
-//                 let test = undefined;
-//                 return (
-//                     <div key={form.name}>
-//                         <TextField
-//                             onChange={this.handleFormChange}
-//                             id={form.name}
-//                             name={form.name}
-//                             type={form.type}
-//                             required={form.required}
-//                             pattern={form.pattern}
-//                             label={form.label}
-//                             value={this.state[form.name] || ""}
-//                         />
-//                     </div>
-//                 )
-//             }
-//             return (
-//                 <div>Tipo de formulário não encontrado</div>
-//             )
-
-//         })
-//     )
-// }
