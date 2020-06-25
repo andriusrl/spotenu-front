@@ -18,32 +18,19 @@ class MapForm extends React.Component {
     handleFormChange = (e) => {
         const { name, value } = e.target
 
-        // console.log(e.target)
-        // console.log("UEHHHHHHHHHHHHHHHHH")
-        // console.log(name)
-        // console.log(value)
-
-        // console.log(this.state.form)
-        // console.log(this.state.form.name)
-
         this.setState({
             formValues: {
                 ...this.state.formValues,
                 [name]: value
             }
         })
-        // console.log(this.state.form)
-        // console.log(this.state.form.name)
-
+        this.props.returnForm({...this.state.formValues, [name]: value})
     }
 
     showform = () => {
         return (
             this.state.form.map((form) => {
                 if (form.type === "text" || form.type === "password") {
-                    // console.log(form)
-                    // console.log(this.state.formValues)
-                    // console.log.log(this.state.formValues)
                     return (
                         <div key={form.name}>
                             <TextField

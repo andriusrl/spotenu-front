@@ -96,7 +96,8 @@ class Signup extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            userType: "listener"
+            userType: "listener",
+            form: []
         }
     }
 
@@ -106,14 +107,14 @@ class Signup extends React.Component {
     }
 
     handleChangeUserType = (e) => {
-        this.setState({userType:e.target.value})
+        this.setState({ userType: e.target.value })
     }
 
 
     showForm = () => {
-        console.log(this.state.userType)
-        console.log(this.state.userType=="listener")
-        return this.state.userType=="listener"?<MapForm key="listener" form={signupFormUser} />:<MapForm key="band" form={signupFormBand} />
+        return this.state.userType == "listener" ?
+            <MapForm key="listener" form={signupFormUser} returnForm={(form)=>{this.setState({form: form})}} /> :
+            <MapForm key="band" form={signupFormBand} returnForm={(form)=>{this.setState({form: form})}} />
     }
 
     render() {

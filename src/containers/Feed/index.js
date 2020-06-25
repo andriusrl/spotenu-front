@@ -93,7 +93,7 @@ class Feed extends React.Component {
             <div>
                 <NewPostWrapper className={classes.card}>
                     <CardContent>
-                        <FormCustom onSubmit={(event) => {
+                        {/* <FormCustom onSubmit={(event) => {
                             event.preventDefault()
                             this.props.createPost(this.state.form, token)
                         }}>
@@ -120,7 +120,8 @@ class Feed extends React.Component {
                             })
                             }
                             <ButtonCustom type="submit">Criar post</ButtonCustom>
-                        </FormCustom>
+                        </FormCustom> */}
+                        Feed do spotenu
                     </CardContent>
                 </NewPostWrapper>
                 {this.props.feedList !== undefined ? this.listFeed() : <div>Carregando...</div>}
