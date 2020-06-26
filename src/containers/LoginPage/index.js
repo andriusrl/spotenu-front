@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { TextField } from "@material-ui/core";
 import {ButtonCustom} from '../../style/style';
+import MapForm from "../../utils/forms";
 
 const LoginWrapper = styled.form`
   width: 100%;
@@ -14,44 +15,45 @@ const LoginWrapper = styled.form`
   display: grid;
 `;
 
+const loginForm = [
+  {
+      name: "emailOrNickname",
+      label: "Email ou Nickname",
+      type: "text",
+      required: true,
+      // pattern: "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/",
+      title: "Email ou nickname",
+  },
+  {
+      name: "password",
+      label: "Senha",
+      type: "password",
+      required: true,
+      title: "Senha do usuário",
+  }
+]
+
 class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: ""
+      form: []
     }
-  }
-
-  handleFieldChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
   }
 
   signIn = (e) => {
     e.preventDefault()
-    this.props.login(this.state.email, this.state.password)
+    this.props.login(this.state.form)
+  }
+
+  showForm = (e) =>{
+    return <MapForm key="login" form={loginForm} returnForm={(form)=>{this.setState({form: form})}} />
   }
 
   render() {
     return (
       <LoginWrapper onSubmit={this.signIn}>
-        <TextField 
-          onChange={this.handleFieldChange} 
-          name="email"
-          type="email"
-          label="E-mail"
-          pattern= "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/"
-          value={this.state.email}
-        />
-        <TextField
-          onChange={this.handleFieldChange}
-          name="password"
-          type="password"
-          label="Password"
-          value={this.state.password}
-        />
+        {this.showForm()}
         <ButtonCustom type="submit"> LOGIN </ButtonCustom>
       </LoginWrapper>
     );

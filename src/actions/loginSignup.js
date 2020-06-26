@@ -4,27 +4,13 @@ import { routes } from '../containers/Router'
 
 const baseUrl = 'http://localhost:3003/users'
 
-export const login = (email, password) => async (dispatch) => {
-
-    const loginData = {
-        email,
-        password
-    }
-
+export const login = (form) => async (dispatch) => {
     try {
         const response = await axios.post(
-            `${baseUrl}/users/login`, loginData
+            `${baseUrl}/login`, form
         );
 
-        const token = response.data.acessToken;
-        // const username = response.data.user.username
-
-        //Testando token
-        console.log(token)
-
-        window.localStorage.setItem("token", token);
-        // window.localStorage.setItem("user", username)
-
+        window.localStorage.setItem("token", response.data.accessToken);
         dispatch(push(routes.feed))
     } catch (error) {
         alert('Por favor tentar novamente')
@@ -41,17 +27,15 @@ export const signup = (formData) => async (dispatch) => {
         "password": password
     }
     try {
-        let result = undefined
+        let response = undefined
         if (!description){
-            result = await axios.post(`${baseUrl}/signup/listener`, data)
+            response = await axios.post(`${baseUrl}/signup/listener`, data)
         }
         else{
-            result = await axios.post(`${baseUrl}/signup/band`, data)
+            response = await axios.post(`${baseUrl}/signup/band`, data)
         }
         alert("Usuário criado com sucesso")
-        // console.log(result.data.accessToken)
-        // dispatch(login(email, password))
-        window.localStorage.setItem("token", result.data.accessToken);
+        window.localStorage.setItem("token", response.data.accessToken);
         dispatch(push(routes.feed))
     }
     catch (error) {

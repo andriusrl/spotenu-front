@@ -2,7 +2,7 @@ import React from "react";
 import { ConnectedRouter } from "connected-react-router";
 import { Switch, Route } from "react-router-dom";
 import LoginPage from "../LoginPage";
-import DetailPostPage from "../DetailPostPage";
+import DetailPostPage from "../SignupGender";
 import Signup from "../Signup";
 import Feed from "../Feed";
 
