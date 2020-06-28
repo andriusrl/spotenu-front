@@ -9,6 +9,10 @@ import { push } from "connected-react-router";
 import { routes } from "../Router";
 import { setLogged } from "../../actions/menu"
 
+const MenuWrapper = styled(AppBar)`
+    position: fixed;
+`
+//CONTINUAR ESTILIZAÇÃO DAQUI DEPOIS
 const MenuItems = styled.div`
     width: 80%;
     margin-left:auto;
@@ -86,7 +90,7 @@ class Menu extends React.Component {
 
     render() {
         return (
-            <AppBar position="static" color="primary">
+            <MenuWrapper position="static" color="primary">
                 <Toolbar>
                     <MenuItems>
                         <MenuItem>
@@ -99,7 +103,7 @@ class Menu extends React.Component {
                         </MenuItem>
                     </MenuItems>
                 </Toolbar>
-            </AppBar>
+            </MenuWrapper>
         )
     }
 }

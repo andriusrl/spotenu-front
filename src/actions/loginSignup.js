@@ -18,7 +18,7 @@ export const login = (form) => async (dispatch) => {
 }
 
 export const signup = (formData) => async (dispatch) => {
-    const { name, email, nickname, description, password} = formData
+    const { name, email, nickname, description, password } = formData
     const data = {
         "name": name,
         "email": email,
@@ -28,14 +28,48 @@ export const signup = (formData) => async (dispatch) => {
     }
     try {
         let response = undefined
-        if (!description){
+        if (!description) {
             response = await axios.post(`${baseUrl}/signup/listener`, data)
         }
-        else{
+        else {
             response = await axios.post(`${baseUrl}/signup/band`, data)
         }
         alert("Usuário criado com sucesso")
         window.localStorage.setItem("token", response.data.accessToken);
+        dispatch(push(routes.feed))
+    }
+    catch (error) {
+        console.error(error)
+    }
+}
+
+export const signupAdmin = (formData, token) => async (dispatch) => {
+    const { name, email, nickname, description, password } = formData.form
+    console.log("entrou na outr parte")
+    
+    const data = {
+        "name": name,
+        "email": email,
+        "nickname": nickname,
+        "password": password
+    }
+    console.log(formData)
+    console.log(name)
+    console.log(email)
+    console.log(nickname)
+    console.log(password)
+
+    try {
+        const response = await axios.post(
+            `${baseUrl}/signup/admin`,
+            data,
+            {
+                headers: {
+                    Authorization: token
+                }
+            }
+        )
+        alert("Usuário admin criado com sucesso")
         dispatch(push(routes.feed))
     }
     catch (error) {
