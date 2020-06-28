@@ -42,8 +42,6 @@ const store = createStore(generateReducers(history), compose(...middlewares));
 export const App = () => (
   <Provider store={store}>
     <MuiThemeProvider theme={theme}>
-      <CssBaseline />
-      <Menu />
       <PageContent className={classes.card}>
         <CardContent>
           <Router history={history} />
@@ -52,6 +50,8 @@ export const App = () => (
       <Footer position="static" color="primary">
         <strong>Andrius - Spotenu</strong>
       </Footer>
+      <Menu />
+      <CssBaseline />
     </MuiThemeProvider>
   </Provider>
 );
