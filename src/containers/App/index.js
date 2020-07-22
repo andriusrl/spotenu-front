@@ -14,6 +14,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import AppBar from '@material-ui/core/AppBar';
 import {classes} from '../../style/theme';
+import MenuBottom from "../MenuBottom";
 
 const PageContent = styled(Card)`
   width: 800px;
@@ -42,6 +43,7 @@ const store = createStore(generateReducers(history), compose(...middlewares));
 export const App = () => (
   <Provider store={store}>
     <MuiThemeProvider theme={theme}>
+    <Menu />
       <PageContent className={classes.card}>
         <CardContent>
           <Router history={history} />
@@ -50,8 +52,8 @@ export const App = () => (
       <Footer position="static" color="primary">
         <strong>Andrius - Spotenu</strong>
       </Footer>
-      <Menu />
       <CssBaseline />
+      <MenuBottom />
     </MuiThemeProvider>
   </Provider>
 );
