@@ -37,7 +37,9 @@ class BandsPage extends React.Component {
     showBandsNotApproved = () => {
         return (
             <div>
-                {this.props.bandsList.map(band => {
+                {this.props.bandsList.filter(band => {
+                    return !band.status
+                }).map(band => {
                     return (
                         <div>
                             teste

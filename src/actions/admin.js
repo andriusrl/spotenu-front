@@ -42,6 +42,7 @@ export const approveBand = (token, email) => async (dispatch) =>{
                 }
             }
         )
+        dispatch(getAllBands(token))
         alert('Banda aprovada')
     } catch (error) {
         alert('Não foi possivel aprovar banda')
