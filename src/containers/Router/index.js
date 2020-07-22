@@ -6,6 +6,8 @@ import DetailPostPage from "../SignupGender";
 import Signup from "../Signup";
 import SignupAdmin from "../../components/SignupAdmin";
 import Feed from "../Feed";
+import AdminPage from "../AdminPage"
+import BandsPage from "../BandsPage";
 
 export const routes = {
   root: "/",
@@ -14,6 +16,8 @@ export const routes = {
   signupAdmin: "/signup/admin",
   feed: "/feed",
   detailPost: "/detail-post",
+  admin: "/admin",
+  bands: "/admin/bands"
 };
 
 function Router(props) {
@@ -26,6 +30,8 @@ function Router(props) {
         <Route exact path={routes.signupAdmin} component={SignupAdmin} />
         <Route exact path={routes.feed} component={Feed} />
         <Route exact path={routes.detailPost} component={DetailPostPage} />
+        <Route exact path={routes.admin} component={AdminPage} />
+        <Route exact path={routes.bands} component={BandsPage} />
       </Switch>
     </ConnectedRouter>
   );
